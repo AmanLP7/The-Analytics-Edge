@@ -118,6 +118,12 @@ train(Reverse ~ Circuit + Issue + Petitioner + Respondent + LowerCourt + Unconst
 We now create a new model using the cp value of 0.18.
 
 ```{r}
-
+StevensTreeCV = rpart(Reverse ~ Circuit + Issue + Petitioner + Respondent + LowerCourt + Unconst, data = train, method = "class",
+                      cp = 0.18)
+predictCV = predict(StevensTreeCV, newdata = test, type = "class")
+sprintf("Below is the confusion matrix ==>")
+table(test$Reverse, predictCV)
+sprintf("Accuracy of model => %f", (59+64) / (59+64+18+29))
+prp(StevensTreeCV)
 ```
 
